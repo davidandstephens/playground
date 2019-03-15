@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rock, Paper, Scissors</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/skeleton.css">
+    <link rel="stylesheet" href="../css/master.css">
+</head>
+<body class="make-dark">
+    <main class="container main-content">
+        <h1>Welcome to my Nightmare</h1>
+        <h3>Choose you weapon!</h3>
+
+        <button id="rock" class="button-primary">Rock</button>
+        <button id="paper" class="button-primary">Paper</button>
+        <button id="scissors" class="button-primary">Scissors</button>
+
+        <h1 id="result">Who will win?</h1>
+
+        <div class="row row-eq-height">
+            <div class="one column"></div>
+            <div id="user" class="warzone one-third column">
+                <img src="../img/q-mark.png" class="fighter" alt="?">
+            </div>
+            <div class="three columns versus-house">
+                <img src="../img/versus.png" class="fighter" alt="versus">
+            </div>
+            <div id="comp" class="warzone one-third column">
+                <img src="../img/comp-q-mark.png" class="fighter" alt="?">
+            </div>
+            <div class="one column"></div>
+        </div>
+    </main>
+
+    <script src="../js/rps.js"></script>
+</body>
+</html>

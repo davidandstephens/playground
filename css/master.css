@@ -1,0 +1,27 @@
+.make-dark {
+    background-color: #282F44;
+}
+
+.main-content {
+    background-color: #CEE0DC;
+    color: #282F44;
+}
+
+.warzone {
+    background-color: #99D5C9;
+    border-radius: 55px;
+}
+
+.fighter {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+}
