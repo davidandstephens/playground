@@ -3,8 +3,28 @@
 }
 
 .main-content {
+    font-size: 1.25em;
     background-color: #CEE0DC;
+    font-family: 'Montserrat', sans-serif;
     color: #282F44;
+}
+
+.main-content button {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0 4px;
+    font-size: 1.25em;
+}
+
+.center-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#welcome {
+    font-family: 'Bungee Inline', cursive;
+    font-size: 3.25em;
+    text-align: center;
 }
 
 .warzone {
@@ -24,4 +44,14 @@
     display: -webkit-flex;
     display: -ms-flexbox;
     display:         flex;
+}
+
+#result {
+    font-family: 'Bungee Inline', cursive;
+    font-size: 4.5em;
+    text-align: center;
+}
+
+nav {
+   color: #633F7C;
 }
