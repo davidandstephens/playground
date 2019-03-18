@@ -1,5 +1,10 @@
 .make-dark {
     background-color: #282F44;
+    background: url("../img/red-blue-bricks-pattern.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .main-content {
@@ -7,6 +12,7 @@
     background-color: #CEE0DC;
     font-family: 'Montserrat', sans-serif;
     color: #282F44;
+    border-radius: 0 0 25px 25px;
 }
 
 .main-content button {
@@ -54,4 +60,8 @@
 
 nav {
    color: #633F7C;
+}
+
+.game-area {
+    margin-bottom: 1.5em;
 }
