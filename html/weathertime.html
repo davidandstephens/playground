@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Weather Times</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Ruluko|UnifrakturMaguntia" rel="stylesheet">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css' type='text/css' />
+    <style>
+        * {
+            font-family: 'Ruluko', sans-serif;
+        }
+        .nav-img {
+            vertical-align: middle;
+            height: 50px;
+        }
+        .center-img {
+            display: block;
+            margin: auto;
+            width: 125px;
+        }
+        .wText {
+            font-size: 40px;
+            vertical-align: middle;
+            font-family: 'UnifrakturMaguntia', cursive;
+        }
+        #map {
+            width:100%;
+            height: 350px;
+        }
+        .card-content h3 {
+            margin: 5px;
+        }
+        .card-action h5 {
+            margin: 0;
+            padding: 0;
+        }
+        .card .card-content {
+            padding: 5px;
+        }
+        .card .card-action {
+            padding: 5px;
+        }
+        .close-gap {
+            margin-bottom: .5rem;
+        }
+        .margin-top-zero {
+            margin-top: 0;
+        }
+        .margin-bottom-zero {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="grey-text text-darken-4 grey darken-3">
+    <header>
+        <div class="navbar-fixed">
+            <nav class="grey darken-4">
+                <div class="nav-wrapper container">
+                    <span class="wText green-text text-accent-4">The Weather Times - San Antonio</span>
+                    <div class="right">
+                        <img class="nav-img" id="changeUnit" src="../img/weather-icons/012-farenheit.png" alt="">
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <div class="row close-gap">
+            <div class="col s4">
+                <div class="card margin-bottom-zero">
+                    <div class="card-image">
+                        <img src="../img/weather-bar.png" alt="colorful bar">
+                    </div>
+                    <div class="card-content">
+                        <img class="responsive-img center-img" id="today-icon" src="../img/Ripple-1s-200px.gif" alt="weather">
+                        <div  id="today-weather">
+
+                        </div>
+                    </div>
+                    <div id="today-date" class="card-action center-align">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="card margin-bottom-zero">
+                    <div class="card-image">
+                        <img src="../img/weather-bar.png" alt="colorful bar">
+                    </div>
+                    <div class="card-content">
+                        <img class="responsive-img center-img" id="tomorrow-icon" src="../img/Ripple-1s-200px.gif" alt="weather">
+                        <div  id="tomorrow-weather">
+
+                        </div>
+                    </div>
+                    <div id="tomorrow-date" class="card-action center-align">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="card margin-bottom-zero">
+                    <div class="card-image">
+                        <img src="../img/weather-bar.png" alt="colorful bar">
+                    </div>
+                    <div class="card-content">
+                        <img class="responsive-img center-img" id="in-two-days-icon" src="../img/Ripple-1s-200px.gif" alt="weather">
+                        <div  id="in-two-days-weather">
+
+                        </div>
+                    </div>
+                    <div id="in-two-days-date" class="card-action center-align">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12">
+                <div class="card margin-top-zero grey darken-4">
+                    <div class="card-image">
+                        <img src="../img/big-weather-bar.png" alt="colorful bar">
+                    </div>
+                    <div class="card-content">
+                        <div id='map'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+    <footer></footer>
+
+    <!--Scripts-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src='https://static-assets.mapbox.com/gl-pricing/dist/mapbox-gl.js'></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js'></script>
+    <script src="../js/keys.js"></script>
+    <script>
+        var arr = [-98.491142, 29.424349];
+        var ll = mapboxgl.LngLat.convert(arr);
+        var lat = 29.424349;
+        var long = -98.491142;
+
+        let inC = false;
+        let inF = true;
+
+        const getTheTempertures = (data, index) => {
+            return {
+                high: Math.round(data.daily.data[index].temperatureHigh),
+                low: Math.round(data.daily.data[index].temperatureLow)
+            };
+        };
+
+        const getWeatherInfo = (data, index) => {
+            return {
+                percipType: data.daily.data[index].precipType,
+                percipChance: Math.round(data.daily.data[index].precipProbability * 100),
+                dewPoint: Math.round(data.daily.data[index].dewPoint),
+                humidity: data.daily.data[index].humidity * 100,
+                windSpeed: data.daily.data[index].windSpeed
+        }
+        };
+
+        const selectIcon = (data, index) => {
+            let iconSelected = "../img/weather-icons/";
+            switch (data.daily.data[index].icon) {
+                case 'clear-day':
+                    iconSelected += "029-sunrise.png";
+                    break;
+                case 'clear-night':
+                    iconSelected += '031-night.png';
+                    break;
+                case 'rain':
+                    iconSelected += '049-umbrella.png';
+                    break;
+                case 'snow':
+                    iconSelected += '053-snowman.png';
+                    break;
+                case 'sleet':
+                    iconSelected += '053-snowman.png';
+                    break;
+                case 'wind':
+                    iconSelected += '051-windsign.png';
+                    break;
+                case 'fog':
+                    iconSelected += '016-wind.png';
+                    break;
+                case 'cloudy':
+                    iconSelected += '014-cloud.png';
+                    break;
+                case 'partly-cloudy-day':
+                    iconSelected += '013-cloudy.png';
+                    break;
+                case 'partly-cloudy-night':
+                    iconSelected += '055-night.png';
+                    break;
+                default:
+                    iconSelected += 'ghost.png';
+                    break;
+            }
+            return iconSelected;
+        };
+
+        const clearWeatherInfo = () => {
+            $('#today-weather').html('');
+            $('#tomorrow-weather').html('');
+            $('#in-two-days-weather').html('');
+            $('#today-date').html('');
+            $('#tomorrow-date').html('');
+            $('#in-two-days-date').html('');
+            $('.wText').html('The Weather Times');
+        };
+
+        const cityHeader  = () => {
+            $.get('http://www.mapquestapi.com/geocoding/v1/reverse?key=' + mapquestKey + '&location=' + lat + ',' + long + '&includeRoadMetadata=true&includeNearestIntersection=true').done((datum) => {
+                console.log(datum.results[0].locations[0].adminArea5);
+                $('.wText').html('The Weather Times - ' + datum.results[0].locations[0].adminArea5);
+            });
+        };
+
+        const getDate = (data, index) => {
+            let dateObject = new Date(data.daily.data[index].time * 1000);
+            let day = '';
+            let month = '';
+
+            switch (dateObject.getDay()) {
+                case 0:
+                    day = 'Sunday';
+                    break;
+                case 1:
+                    day = 'Monday';
+                    break;
+                case 2:
+                    day = 'Tuesday';
+                    break;
+                case 3:
+                    day = 'Wednesday';
+                    break;
+                case 4:
+                    day = 'Thursday';
+                    break;
+                case 5:
+                    day = 'Friday';
+                    break;
+                case 6:
+                    day = 'Saturday';
+                    break;
+            }
+            switch (dateObject.getMonth()) {
+                case 0:
+                    month = 'January';
+                    break;
+                case 1:
+                    month = 'February';
+                    break;
+                case 2:
+                    month = 'March';
+                    break;
+                case 3:
+                    month = 'April';
+                    break;
+                case 4:
+                    month = 'May';
+                    break;
+                case 5:
+                    month = 'June';
+                    break;
+                case 6:
+                    month = 'July';
+                    break;
+                case 7:
+                    month = 'August';
+                    break;
+                case 8:
+                    month = 'September';
+                    break;
+                case 9:
+                    month = 'October';
+                    break;
+                case 10:
+                    month = 'November';
+                    break;
+                case 11:
+                    month = 'December';
+                    break;
+                default:
+                    month = 'Smarch';
+                    break;
+            }
+            return {
+                year: dateObject.getFullYear(),
+                month,
+                day,
+                date: dateObject.getDate()
+            }
+        };
+
+        $('#changeUnit').click(() => {
+            if (inF) {
+                $('#changeUnit').attr('src', '../img/weather-icons/010-celsius.png');
+                inC = true;
+                inF = false;
+                weatherC();
+            } else if (inC) {
+                $('#changeUnit').attr('src', '../img/weather-icons/012-farenheit.png');
+                inF = true;
+                inC = false;
+                weatherF();
+            }
+        });
+
+        const weatherF = () => {
+            $('#today-icon').attr('src', '../img/Ripple-1s-200px.gif');
+            $('#tomorrow-icon').attr('src', '../img/Ripple-1s-200px.gif');
+            $('#in-two-days-icon').attr('src', '../img/Ripple-1s-200px.gif');
+            clearWeatherInfo();
+            setTimeout(function () {
+                $.get("https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/"+ darkSkyKey +"/" + lat + "," + long).done((data) => {
+                    let today = getDate(data, 0);
+                    let todayHighAndLow = getTheTempertures(data, 0);
+                    let todayWeatherInfo = getWeatherInfo(data, 0);
+                    let todayIcon = selectIcon(data, 0);
+                    let todayPercipText = todayWeatherInfo.percipChance + "% chance of " + todayWeatherInfo.percipType + ".";
+                    let todayTempText = todayHighAndLow.high + "˚F / " + todayHighAndLow.low + "˚F";
+                    let tomorrow = getDate(data, 1);
+                    let tomHighAndLow = getTheTempertures(data, 1);
+                    let tomWeatherInfo = getWeatherInfo(data, 1);
+                    let tomIcon = selectIcon(data, 1);
+                    let tomPercipText = tomWeatherInfo.percipChance + "% chance of " + tomWeatherInfo.percipType + ".";
+                    let tomTempText = tomHighAndLow.high + "˚F / " + tomHighAndLow.low + "˚F";
+                    let inTwoDays = getDate(data, 2);
+                    let twoDaysHighAndLow = getTheTempertures(data, 2);
+                    let twoDaysWeatherInfo = getWeatherInfo(data, 2);
+                    let twoDaysIcon = selectIcon(data, 2);
+                    let twoDaysPercipText = twoDaysWeatherInfo.percipChance + "% chance of " + twoDaysWeatherInfo.percipType + ".";
+                    let twoDaysTempText = twoDaysHighAndLow.high + "˚F / " + twoDaysHighAndLow.low + "˚F";
+                    cityHeader();
+                    $('#today-icon').attr('src', todayIcon);
+                    $('#today-weather').html('').append('<h3 class="center-align">' + todayTempText + '</h3><p class="center-align">' + todayPercipText + '</p>');
+                    $('#today-date').html('').append('<h5>' + today.day + ', ' + today.month + ' ' + today.date + '</h5>');
+                    $('#tomorrow-icon').attr('src', tomIcon);
+                    $('#tomorrow-weather').html('').append('<h3 class="center-align">' + tomTempText + '</h3><p class="center-align">' + tomPercipText + '</p>');
+                    $('#tomorrow-date').html('').append('<h5>' + tomorrow.day + ', ' + tomorrow.month + ' ' + tomorrow.date + '</h5>');
+                    $('#in-two-days-icon').attr('src', twoDaysIcon);
+                    $('#in-two-days-weather').html('').append('<h3 class="center-align">' + twoDaysTempText + '</h3><p class="center-align">' + twoDaysPercipText + '</p>');
+                    $('#in-two-days-date').html('').append('<h5>' + inTwoDays.day + ', ' + inTwoDays.month + ' ' + inTwoDays.date + '</h5>');
+                })
+            }, 1500)
+            ;
+        };
+
+        const weatherC = () => {
+            $('#today-icon').attr('src', '../img/Ripple-1s-200px.gif');
+            $('#tomorrow-icon').attr('src', '../img/Ripple-1s-200px.gif');
+            $('#in-two-days-icon').attr('src', '../img/Ripple-1s-200px.gif');
+            clearWeatherInfo();
+            setTimeout(function () {
+                $.get("https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/"+ darkSkyKey +"/" + lat + "," + long + "?units=si").done((data) => {
+                    let today = getDate(data, 0);
+                    let todayHighAndLow = getTheTempertures(data, 0);
+                    let todayWeatherInfo = getWeatherInfo(data, 0);
+                    let todayIcon = selectIcon(data, 0);
+                    let todayPercipText = todayWeatherInfo.percipChance + "% chance of " + todayWeatherInfo.percipType + ".";
+                    let todayTempText = todayHighAndLow.high + "˚C / " + todayHighAndLow.low + "˚C";
+                    let tomorrow = getDate(data, 1);
+                    let tomHighAndLow = getTheTempertures(data, 1);
+                    let tomWeatherInfo = getWeatherInfo(data, 1);
+                    let tomIcon = selectIcon(data, 1);
+                    let tomPercipText = tomWeatherInfo.percipChance + "% chance of " + tomWeatherInfo.percipType + ".";
+                    let tomTempText = tomHighAndLow.high + "˚C / " + tomHighAndLow.low + "˚C";
+                    let inTwoDays = getDate(data, 2);
+                    let twoDaysHighAndLow = getTheTempertures(data, 2);
+                    let twoDaysWeatherInfo = getWeatherInfo(data, 2);
+                    let twoDaysIcon = selectIcon(data, 2);
+                    let twoDaysPercipText = twoDaysWeatherInfo.percipChance + "% chance of " + twoDaysWeatherInfo.percipType + ".";
+                    let twoDaysTempText = twoDaysHighAndLow.high + "˚C / " + twoDaysHighAndLow.low + "˚C";
+                    cityHeader();
+                    $('#today-icon').attr('src', todayIcon);
+                    $('#today-weather').html('').append('<h3 class="center-align">' + todayTempText + '</h3><p class="center-align">' + todayPercipText + '</p>');
+                    $('#today-date').html('').append('<h5>' + today.day + ', ' + today.month + ' ' + today.date + '</h5>');
+                    $('#tomorrow-icon').attr('src', tomIcon);
+                    $('#tomorrow-weather').html('').append('<h3 class="center-align">' + tomTempText + '</h3><p class="center-align">' + tomPercipText + '</p>');
+                    $('#tomorrow-date').html('').append('<h5>' + tomorrow.day + ', ' + tomorrow.month + ' ' + tomorrow.date + '</h5>');
+                    $('#in-two-days-icon').attr('src', twoDaysIcon);
+                    $('#in-two-days-weather').html('').append('<h3 class="center-align">' + twoDaysTempText + '</h3><p class="center-align">' + twoDaysPercipText + '</p>');
+                    $('#in-two-days-date').html('').append('<h5>' + inTwoDays.day + ', ' + inTwoDays.month + ' ' + inTwoDays.date + '</h5>');
+                })
+            }, 1500)
+            ;
+        };
+
+        mapboxgl.accessToken = mapboxKey;
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/dark-v10',
+            center: ll, // starting position
+            zoom: 7 // starting zoom
+        });
+
+        map.addControl(new mapboxgl.NavigationControl());
+
+        var marker = new mapboxgl.Marker({
+            draggable: true,
+            color: "#00c853"
+        })
+            .setLngLat(ll)
+            .addTo(map);
+
+        function onDragEnd() {
+            ll = marker.getLngLat();
+            lat = ll.lat;
+            long = ll.lng;
+            if (inC){
+                return weatherC();
+            } else {
+                return weatherF();
+            }
+        }
+
+        marker.on('dragend', onDragEnd);
+        weatherF();
+        
+    </script>
+</body>
+</html>

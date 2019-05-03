@@ -1,0 +1,70 @@
+* {
+    background: steelblue;
+}
+
+.row {
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    display: block;
+}
+
+.pie {
+    display: inline-block;
+    height: 250px;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+}
+
+.one {
+    border-bottom:20px solid midnightblue;
+    border-right:20px solid midnightblue;
+    border-top:20px solid midnightblue;
+    display: inline-block;
+    height: 150px;
+    border-radius: 0 50% 50% 0;
+    transform: skewX(-10deg);
+
+}
+
+.two {
+    background: red;
+    border-radius: 0 120% 90% 0;
+    transform: skewX(-10deg);
+    z-index: 1;
+}
+
+.circle {
+    background-color: red;
+    display: block;
+    border-radius: 50%;
+    height: 250px;
+    width: 250px;
+    position: absolute;
+    left: 480px;
+    top: 8px;
+
+}
+
+.three {
+    border-bottom:20px solid midnightblue;
+    border-left:20px solid midnightblue;
+    border-top:20px solid midnightblue;
+    display: inline-block;
+    height: 150px;
+    border-radius: 50% 0 0 50% ;
+    transform: skewX(-10deg);
+    position: absolute;
+    left: 80px;
+    top: 8px;
+}
+
+.four {
+    background-color: blueviolet;
+    border-radius: 0 0 100% 0;
+}
+
+
+
+
