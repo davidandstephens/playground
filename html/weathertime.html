@@ -27,7 +27,7 @@
         }
         #map {
             width:100%;
-            height: 350px;
+            height: 260px;
         }
         .card-content h3 {
             margin: 5px;
@@ -126,7 +126,9 @@
                     </div>
                     <div class="card-content">
                         <div id='map'></div>
-                        </div>
+                        <label for="geocoder">Search City:</label>
+                        <input id="geocoder" type="text">
+                        <button class="form-control" id="geo-btn">Submit</button>
                     </div>
                 </div>
             </div>
@@ -321,8 +323,8 @@
             $('#tomorrow-icon').attr('src', '../img/Ripple-1s-200px.gif');
             $('#in-two-days-icon').attr('src', '../img/Ripple-1s-200px.gif');
             clearWeatherInfo();
-            setTimeout(function () {
-                $.get("https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/"+ darkSkyKey +"/" + lat + "," + long).done((data) => {
+            setTimeout(() => {
+                $.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lat},${long}`).done((data) => {
                     let today = getDate(data, 0);
                     let todayHighAndLow = getTheTempertures(data, 0);
                     let todayWeatherInfo = getWeatherInfo(data, 0);
@@ -361,8 +363,8 @@
             $('#tomorrow-icon').attr('src', '../img/Ripple-1s-200px.gif');
             $('#in-two-days-icon').attr('src', '../img/Ripple-1s-200px.gif');
             clearWeatherInfo();
-            setTimeout(function () {
-                $.get("https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/"+ darkSkyKey +"/" + lat + "," + long + "?units=si").done((data) => {
+            setTimeout(() => {
+                $.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lat},${long}?units=si`).done((data) => {
                     let today = getDate(data, 0);
                     let todayHighAndLow = getTheTempertures(data, 0);
                     let todayWeatherInfo = getWeatherInfo(data, 0);
@@ -413,7 +415,7 @@
             .setLngLat(ll)
             .addTo(map);
 
-        function onDragEnd() {
+        const onDragEnd = () => {
             ll = marker.getLngLat();
             lat = ll.lat;
             long = ll.lng;
@@ -422,11 +424,26 @@
             } else {
                 return weatherF();
             }
-        }
+        };
 
         marker.on('dragend', onDragEnd);
         weatherF();
-        
+
+        $("#geo-btn").on("click", () => {
+            let query = $("#geocoder").val();
+            $.get("http://www.mapquestapi.com/geocoding/v1/address?key=" + mapquestKey + "&location="+ query).done((datum) => {
+                ll = datum.results[0].locations[0].displayLatLng;
+                marker.setLngLat(ll);
+                map.flyTo({center: ll});
+                lat = ll.lat;
+                long = ll.lng;
+                if (inC){
+                    return weatherC();
+                } else {
+                    return weatherF();
+                }
+            });
+        })
     </script>
 </body>
 </html>
