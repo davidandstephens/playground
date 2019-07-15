@@ -5,3 +5,5 @@ public/main.js
 *.map
 node_modules
 keys.js
+confetti.js
+student-randomizer.html
