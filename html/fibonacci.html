@@ -6,5 +6,37 @@
 </head>
 <body>
 
+    <script>
+        (() => {
+            const printFibonacci = (until) => {
+                let num1 = 0;
+                let num2 = 1;
+                for (let i = 0; i < until; i++) {
+                    console.log(num1 + num2);
+                    if (i % 2 === 0) {
+                        num2 += num1;
+                    } else {
+                        num1 += num2;
+                    }
+                }
+            };
+
+            printFibonacci(20);
+
+            const numberTree = () => {
+                let finalString = "";
+                for (let i = 1; i <= 9; i++) {
+                    let string = "";
+                    for (let k = 1; k <= i; k++) {
+                        string += 1;
+                    }
+                    finalString += String(Number(string) * i) + "\n";
+                }
+                return finalString;
+            };
+
+            console.log(numberTree());
+        })();
+    </script>
 </body>
 </html>

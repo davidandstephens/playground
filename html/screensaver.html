@@ -2,9 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Screen Saver Demo</title>
+    <style>
+        *{
+            margin: 0;
+        }
+        body {
+            background: darkslategrey;
+        }
+        #icon{
+            height: 15vh;
+            width: 15vh;
+            border-radius: 50%;
+            animation: colorchange 2s; /* animation-name followed by duration in seconds*/
+            /* you could also use milliseconds (ms) or something like 2.5s */
+            -webkit-animation: colorchange 2s infinite alternate-reverse; /* Chrome and Safari */
+        }
+
+        .x {
+            animation: x 10s linear infinite alternate;
+        }
+
+        .y {
+            animation: y 3s linear infinite alternate;
+        }
+
+        @keyframes x {
+            100% {
+                transform: translateX( calc(100vw - 15vh) );
+            }
+        }
+
+        @keyframes y {
+            100% {
+                transform: translateY( calc(100vh - 15vh) );
+            }
+        }
+
+        @keyframes colorchange
+        {
+            0%   {background: palevioletred;}
+            25%  {background: palegoldenrod;}
+            50%  {background: paleturquoise;}
+            75%  {background: palegreen;}
+            100% {background: palevioletred;}
+        }
+
+        @-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+        {
+            0%   {background: palevioletred;}
+            25%  {background: palegoldenrod;}
+            50%  {background: paleturquoise;}
+            75%  {background: palegreen;}
+            100% {background: palevioletred;}
+        }
+
+    </style>
 </head>
 <body>
-
+    <div class="x">
+        <div class="y">
+            <div id="icon"></div>
+        </div>
+    </div>
 </body>
 </html>

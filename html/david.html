@@ -2,45 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css?family=Belgrano|Jaldi&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Belgrano|M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/skeleton.css">
     <style>
         .serif {
             font-family: 'Belgrano', serif;
         }
         .sans-serif {
-            font-family: 'Jaldi', sans-serif;
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+        }
+        body {
+            margin: 0;
+            color: #333333;
+            font-size: 2em;
+        }
+        .bg {
+            background-color: #333333;
+        }
+        .color {
+            background-color: #00c853;
+            width: 100%;
+            margin: 0;
+            padding: 5px;
+        }
+        .main {
+            background-color: #333;
+            border-radius: 5px;
+            border: 15px ghostwhite solid;
+            margin-top: 5px;
+            padding: 5px;
+            color: ghostwhite;
+        }
+        nav {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+        nav h2 {
+            margin: 0;
+        }
+        ul {
+            list-style-type: none;
+            display: flex;
+            margin: 0;
+        }
+        li {
+            float: left;
+            margin: 0;
+        }
+        a {
+            display: block;
+            text-decoration: none;
+            padding: 0 5px;
+            color: #333333;
+        }
+        a:hover {
+            color: ghostwhite;
+        }
+
+        .large-huge {
+            font-size: 3em;
         }
     </style>
     <title>David Stephens</title>
 </head>
-<body>
-<nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6 serif">
-    <div class="flex items-center flex-shrink-0 text-white mr-6">
+<body class="bg">
+    <nav class="color serif">
+        <h2>DAVID</h2>
+        <ul>
+            <li><a href="">email david</a></li>
+            <li><a href="">connect with david</a></li>
+            <li><a href="">experience david</a></li>
+        </ul>
+    </nav>
+    <img class="u-full-width" src="../img/david.jpg" alt="david">
+    <main class="container sans-serif">
+        <div class="main">
 
-        <span class="font-semibold text-xl tracking-tight">DAVID</span>
-    </div>
-    <div class="block lg:hidden">
-        <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
-            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-        </button>
-    </div>
-    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div class="text-sm lg:flex-grow">
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                Docs
-            </a>
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                Examples
-            </a>
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
-                Blog
-            </a>
+            <p>
+                David Stephens is a web developer from San Antonio, TX. Devourer of macaroni and cheese, lover of professional wrestling, basketball fan, and known video game archivist; he never takes himself too seriously. Born in Houston, but a product of Central Texas through and through: David has no problem with being called a gentle man, but might debate you on a scholar.
+            </p>
+
+            <p>
+                David is a Junior Instructor at Codeup, a career accelerator program based out of downtown San Antonio. Having graduated from the Xanadu cohort of Codeup, David's skills, and team first attitude could be seen from day one. From helping to debug fellow student's code, to giving his classmates a pick me up with some Werther's, David had always been known to pick others up when they're down. Having built a number of projects, David's scientific approach to development has yielded fun and functional results.
+            </p>
         </div>
-        <div>
-            <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Download</a>
-        </div>
-    </div>
-</nav>
+    </main>
 </body>
 </html>

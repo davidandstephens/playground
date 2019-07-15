@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title>The Weather Times</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Ruluko|UnifrakturMaguntia" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Barlow|Kenia&display=swap" rel="stylesheet">
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css' type='text/css' />
     <style>
         * {
-            font-family: 'Ruluko', sans-serif;
+            font-family: 'Barlow', sans-serif;
         }
         .nav-img {
             vertical-align: middle;
@@ -18,16 +18,21 @@
         .center-img {
             display: block;
             margin: auto;
-            width: 125px;
+            width: 85px;
+        }
+        .loading {
+            display: block;
+            margin: auto;
+            width: 192px;
         }
         .wText {
             font-size: 40px;
             vertical-align: middle;
-            font-family: 'UnifrakturMaguntia', cursive;
+            font-family: 'Kenia', cursive;
         }
         #map {
             width:100%;
-            height: 260px;
+            height: 270px;
         }
         .card-content h3 {
             margin: 5px;
@@ -50,6 +55,27 @@
         }
         .margin-bottom-zero {
             margin-bottom: 0;
+        }
+        #geocoder {
+            color: #00c853;
+        }
+        #geocoder:focus {
+            border-bottom: 1px solid #00c853;
+            box-shadow: 0 1px 0 0 #00c853;
+        }
+
+        #geocoder:focus + label {
+            color: #00c853;
+        }
+        #geo-btn {
+            width: 100%;
+            background: #00c853;
+            color: #212121;
+        }
+        .waves-effect.waves-dark .waves-ripple {
+            /* The alpha value allows the text and background color
+            of the button to still show through. */
+            background-color: rgba(33, 33, 33, 0.65);
         }
     </style>
 </head>
@@ -118,7 +144,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row margin-bottom-zero">
             <div class="col s12">
                 <div class="card margin-top-zero grey darken-4">
                     <div class="card-image">
@@ -128,7 +154,7 @@
                         <div id='map'></div>
                         <label for="geocoder">Search City:</label>
                         <input id="geocoder" type="text">
-                        <button class="form-control" id="geo-btn">Submit</button>
+                        <button class="form-control waves-effect waves-dark btn waves-ripple" id="geo-btn">Submit</button>
                     </div>
                 </div>
             </div>
@@ -153,7 +179,7 @@
         let inC = false;
         let inF = true;
 
-        const getTheTempertures = (data, index) => {
+        const getTheTemperatures = (data, index) => {
             return {
                 high: Math.round(data.daily.data[index].temperatureHigh),
                 low: Math.round(data.daily.data[index].temperatureLow)
@@ -222,8 +248,13 @@
 
         const cityHeader  = () => {
             $.get('http://www.mapquestapi.com/geocoding/v1/reverse?key=' + mapquestKey + '&location=' + lat + ',' + long + '&includeRoadMetadata=true&includeNearestIntersection=true').done((datum) => {
-                console.log(datum.results[0].locations[0].adminArea5);
-                $('.wText').html('The Weather Times - ' + datum.results[0].locations[0].adminArea5);
+                if (datum.results[0].locations[0].adminArea5 === "") {
+                    $('.wText').html('The Weather Times');
+                } else if (datum.results[0].locations[0].adminArea1 === "US") {
+                    $('.wText').html('The Weather Times - ' + datum.results[0].locations[0].adminArea5 + ", "  + datum.results[0].locations[0].adminArea3);
+                } else {
+                    $('.wText').html('The Weather Times - ' + datum.results[0].locations[0].adminArea5 + ", "  + datum.results[0].locations[0].adminArea1);
+                }
             });
         };
 
@@ -319,38 +350,38 @@
         });
 
         const weatherF = () => {
-            $('#today-icon').attr('src', '../img/Ripple-1s-200px.gif');
-            $('#tomorrow-icon').attr('src', '../img/Ripple-1s-200px.gif');
-            $('#in-two-days-icon').attr('src', '../img/Ripple-1s-200px.gif');
+            $('#today-icon').attr('src', '../img/Ripple-1s-200px.gif').toggleClass("loading");
+            $('#tomorrow-icon').attr('src', '../img/Ripple-1s-200px.gif').toggleClass("loading");
+            $('#in-two-days-icon').attr('src', '../img/Ripple-1s-200px.gif').toggleClass("loading");
             clearWeatherInfo();
             setTimeout(() => {
                 $.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lat},${long}`).done((data) => {
                     let today = getDate(data, 0);
-                    let todayHighAndLow = getTheTempertures(data, 0);
+                    let todayHighAndLow = getTheTemperatures(data, 0);
                     let todayWeatherInfo = getWeatherInfo(data, 0);
                     let todayIcon = selectIcon(data, 0);
                     let todayPercipText = todayWeatherInfo.percipChance + "% chance of " + todayWeatherInfo.percipType + ".";
                     let todayTempText = todayHighAndLow.high + "˚F / " + todayHighAndLow.low + "˚F";
                     let tomorrow = getDate(data, 1);
-                    let tomHighAndLow = getTheTempertures(data, 1);
+                    let tomHighAndLow = getTheTemperatures(data, 1);
                     let tomWeatherInfo = getWeatherInfo(data, 1);
                     let tomIcon = selectIcon(data, 1);
                     let tomPercipText = tomWeatherInfo.percipChance + "% chance of " + tomWeatherInfo.percipType + ".";
                     let tomTempText = tomHighAndLow.high + "˚F / " + tomHighAndLow.low + "˚F";
                     let inTwoDays = getDate(data, 2);
-                    let twoDaysHighAndLow = getTheTempertures(data, 2);
+                    let twoDaysHighAndLow = getTheTemperatures(data, 2);
                     let twoDaysWeatherInfo = getWeatherInfo(data, 2);
                     let twoDaysIcon = selectIcon(data, 2);
                     let twoDaysPercipText = twoDaysWeatherInfo.percipChance + "% chance of " + twoDaysWeatherInfo.percipType + ".";
                     let twoDaysTempText = twoDaysHighAndLow.high + "˚F / " + twoDaysHighAndLow.low + "˚F";
                     cityHeader();
-                    $('#today-icon').attr('src', todayIcon);
+                    $('#today-icon').attr('src', todayIcon).toggleClass("loading");
                     $('#today-weather').html('').append('<h3 class="center-align">' + todayTempText + '</h3><p class="center-align">' + todayPercipText + '</p>');
                     $('#today-date').html('').append('<h5>' + today.day + ', ' + today.month + ' ' + today.date + '</h5>');
-                    $('#tomorrow-icon').attr('src', tomIcon);
+                    $('#tomorrow-icon').attr('src', tomIcon).toggleClass("loading");
                     $('#tomorrow-weather').html('').append('<h3 class="center-align">' + tomTempText + '</h3><p class="center-align">' + tomPercipText + '</p>');
                     $('#tomorrow-date').html('').append('<h5>' + tomorrow.day + ', ' + tomorrow.month + ' ' + tomorrow.date + '</h5>');
-                    $('#in-two-days-icon').attr('src', twoDaysIcon);
+                    $('#in-two-days-icon').attr('src', twoDaysIcon).toggleClass("loading");
                     $('#in-two-days-weather').html('').append('<h3 class="center-align">' + twoDaysTempText + '</h3><p class="center-align">' + twoDaysPercipText + '</p>');
                     $('#in-two-days-date').html('').append('<h5>' + inTwoDays.day + ', ' + inTwoDays.month + ' ' + inTwoDays.date + '</h5>');
                 })
@@ -359,38 +390,38 @@
         };
 
         const weatherC = () => {
-            $('#today-icon').attr('src', '../img/Ripple-1s-200px.gif');
-            $('#tomorrow-icon').attr('src', '../img/Ripple-1s-200px.gif');
-            $('#in-two-days-icon').attr('src', '../img/Ripple-1s-200px.gif');
+            $('#today-icon').attr('src', '../img/Ripple-1s-200px.gif').toggleClass("loading");
+            $('#tomorrow-icon').attr('src', '../img/Ripple-1s-200px.gif').toggleClass("loading");
+            $('#in-two-days-icon').attr('src', '../img/Ripple-1s-200px.gif').toggleClass("loading");
             clearWeatherInfo();
             setTimeout(() => {
                 $.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lat},${long}?units=si`).done((data) => {
                     let today = getDate(data, 0);
-                    let todayHighAndLow = getTheTempertures(data, 0);
+                    let todayHighAndLow = getTheTemperatures(data, 0);
                     let todayWeatherInfo = getWeatherInfo(data, 0);
                     let todayIcon = selectIcon(data, 0);
                     let todayPercipText = todayWeatherInfo.percipChance + "% chance of " + todayWeatherInfo.percipType + ".";
                     let todayTempText = todayHighAndLow.high + "˚C / " + todayHighAndLow.low + "˚C";
                     let tomorrow = getDate(data, 1);
-                    let tomHighAndLow = getTheTempertures(data, 1);
+                    let tomHighAndLow = getTheTemperatures(data, 1);
                     let tomWeatherInfo = getWeatherInfo(data, 1);
                     let tomIcon = selectIcon(data, 1);
                     let tomPercipText = tomWeatherInfo.percipChance + "% chance of " + tomWeatherInfo.percipType + ".";
                     let tomTempText = tomHighAndLow.high + "˚C / " + tomHighAndLow.low + "˚C";
                     let inTwoDays = getDate(data, 2);
-                    let twoDaysHighAndLow = getTheTempertures(data, 2);
+                    let twoDaysHighAndLow = getTheTemperatures(data, 2);
                     let twoDaysWeatherInfo = getWeatherInfo(data, 2);
                     let twoDaysIcon = selectIcon(data, 2);
                     let twoDaysPercipText = twoDaysWeatherInfo.percipChance + "% chance of " + twoDaysWeatherInfo.percipType + ".";
                     let twoDaysTempText = twoDaysHighAndLow.high + "˚C / " + twoDaysHighAndLow.low + "˚C";
                     cityHeader();
-                    $('#today-icon').attr('src', todayIcon);
+                    $('#today-icon').attr('src', todayIcon).toggleClass("loading");
                     $('#today-weather').html('').append('<h3 class="center-align">' + todayTempText + '</h3><p class="center-align">' + todayPercipText + '</p>');
                     $('#today-date').html('').append('<h5>' + today.day + ', ' + today.month + ' ' + today.date + '</h5>');
-                    $('#tomorrow-icon').attr('src', tomIcon);
+                    $('#tomorrow-icon').attr('src', tomIcon).toggleClass("loading");
                     $('#tomorrow-weather').html('').append('<h3 class="center-align">' + tomTempText + '</h3><p class="center-align">' + tomPercipText + '</p>');
                     $('#tomorrow-date').html('').append('<h5>' + tomorrow.day + ', ' + tomorrow.month + ' ' + tomorrow.date + '</h5>');
-                    $('#in-two-days-icon').attr('src', twoDaysIcon);
+                    $('#in-two-days-icon').attr('src', twoDaysIcon).toggleClass("loading");
                     $('#in-two-days-weather').html('').append('<h3 class="center-align">' + twoDaysTempText + '</h3><p class="center-align">' + twoDaysPercipText + '</p>');
                     $('#in-two-days-date').html('').append('<h5>' + inTwoDays.day + ', ' + inTwoDays.month + ' ' + inTwoDays.date + '</h5>');
                 })
@@ -443,7 +474,7 @@
                     return weatherF();
                 }
             });
-        })
+        });
     </script>
 </body>
 </html>
