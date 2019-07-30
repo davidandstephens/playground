@@ -475,6 +475,25 @@
                 }
             });
         });
+
+        $(document).on("keyup", (e) => {
+            e.preventDefault();
+            if (e.key === "Enter") {
+                let query = $("#geocoder").val();
+                $.get("http://www.mapquestapi.com/geocoding/v1/address?key=" + mapquestKey + "&location=" + query).done((datum) => {
+                    ll = datum.results[0].locations[0].displayLatLng;
+                    marker.setLngLat(ll);
+                    map.flyTo({center: ll});
+                    lat = ll.lat;
+                    long = ll.lng;
+                    if (inC) {
+                        return weatherC();
+                    } else {
+                        return weatherF();
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
