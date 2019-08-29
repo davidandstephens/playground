@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Magic Meatball of Dinner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Hind+Madurai|Rye&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            font-family: 'Hind Madurai', sans-serif;
+        }
+        main {
+            background-image: url(../img/wood-table.jpg);
+            background-size: cover;
+            height: 100vh;
+            width: 100vw;
+            color: aliceblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        section {
+
+            border-radius: 50%;
+            width: 60vw;
+            height: 60vw;
+            background: url("../img/meatball.png");
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #view-port {
+            position: relative;
+            border-radius: 50%;
+            background: url(../img/splats.gif);
+            background-size: cover;
+            height: 30vw;
+            width: 30vw;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            border: 2vh solid #52351d;
+            box-shadow: -10px 10px 10px #382311;
+            overflow: hidden;
+        }
+        .blue-angle {
+            width: 26.5vw;
+        }
+        #dinner {
+            width: 22vw;
+            text-align: center;
+            position: absolute;
+            top: 25%;
+            left: calc(50% - 11vw);
+            font-size: 5vh;
+            z-index: 1;
+            text-shadow: 3px 3px 5px darkblue;
+        }
+        #recipe {
+            position: absolute;
+            bottom: 1vh;
+            right: 1vw;
+            font-size: 3vh;
+            padding: 10px;
+            background-color: mediumblue;
+            border: solid 10px goldenrod;
+            border-radius: 10px;
+            color: goldenrod;
+            text-shadow: 2px 2px 5px darkblue;
+            box-shadow: 5px 5px 10px darkblue;
+        }
+        #cta {
+            position: absolute;
+            top: 1em;
+            left: 1em;
+            color: goldenrod;
+            font-size: 1.5em;
+            border-radius: 20px;
+            background: rgba(25,25,112,.4);
+            padding: 10px;
+            border: solid 5px goldenrod;
+            box-shadow: -5px 5px 10px darkblue
+        }
+        #cta h1 {
+            font-family: 'Rye', cursive;
+            text-shadow: 2px 2px 5px blue;
+            font-size: 5vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="cta">
+        <div>
+            Ask The Magic Meatball...
+            <h1>What's For DINNER?!</h1>
+        </div>
+    </div>
+
+    <main>
+        <section id="meatball" class="animated fadeIn">
+            <div id="view-port">
+                <h1 id="dinner">Press Space or Click The Meatball!</h1>
+                <img class="blue-angle" src="../img/blue-angle.png" alt="blue triangle">
+            </div>
+        </section>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(() => {
+
+            const getDinner = () => {
+                $.get('../data/recipes.json', {}).done(function (data) {
+                    let random = Math.floor(Math.random() * data.length);
+                    $('#view-port').html('<h1 class="animated rotateIn" id="dinner">' + data[random].name + '</h1><img class="blue-angle animated rotateIn" src="../img/blue-angle.png" alt="blue triangle">');
+                    if ($('#recipe').html() === undefined) {
+                        $('main').append('<a id="recipe" class="animated fadeIn" href="' + data[random].source + '" target="_blank">Try this recipe!</a>')
+                    } else {
+                        $('#recipe').attr('href', data[random].source);
+                    }
+                });
+            };
+
+            $(document).keypress((e) => {
+                if (e.key === " ") {
+                    getDinner();
+                }
+            });
+            $('#meatball').on('click', getDinner);
+        });
+    </script>
+</body>
+</html>

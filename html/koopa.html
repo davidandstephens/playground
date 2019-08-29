@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <title>Koopa Troopa Kart</title>
     <style>
+        * {
+            margin: 0;
+        }
         div {
             display: block;
         }
         #track {
-            width: 100%;
+            width: 100vw;
+            height: 100vh;
             display: block;
             margin: auto;
         }
@@ -64,173 +68,49 @@
                 document.getElementById("koopa-gif").removeAttribute("id", "koopa-gif");
             }
             e.preventDefault();
-            var keyPress = e.key;
+            let keyPress = e.key;
             if (keyPress === 'Enter') {
-                $('.koopa')
-                    .attr('src', '../img/koopa-left.png')
-                    .css('left', '325px')
-                    .css('top', '25px')
-                    .delay(3000)
-                    .animate({"left": "-=125px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"left": "-=125px", "top": "+=50px"}, 350)
-                    .animate({"top": "+=400px", "left": "+=25px"}, 750, function() {
-                        $('.koopa').attr('src', '../img/koopa-right.png')
-                    })
-                    .animate({"left": "+=100px", "top": "+=50px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-right.png')
-                    })
-                    .animate({"left": "+=250px", "top": "-=50px"}, 550
-                        , function() {
+
+                    $('.koopa')
+                        .attr('src', '../img/koopa-left.png')
+                        .css('left', '23vw')
+                        .css('top', '7vh')
+                        .delay(3000);
+                for (let i = 1; i <= 3; i++) {
+                    $('.koopa')
+                        .animate({"left": "-=10vw"}, 350, function () {
+                            $('.koopa').attr('src', '../img/koopa-down.png')
+                        })
+                        .animate({"left": "-=7vw", "top": "+=20vh"}, 350)
+                        .animate({"top": "+=400px", "left": "+=25px"}, 750, function () {
+                            $('.koopa').attr('src', '../img/koopa-right.png')
+                        })
+                        .animate({"left": "+=10vw", "top": "+=10vh"}, 350, function () {
+                            $('.koopa').attr('src', '../img/koopa-right.png')
+                        })
+                        .animate({"left": "+=30vw", "top": "-=30vh"}, 550
+                            , function () {
+                                $('.koopa').attr('src', '../img/koopa-up.png')
+                            })
+                        .animate({"left": "+=35vw", "top": "-=36vh"}, 950, function () {
+                            $('.koopa').attr('src', '../img/koopa-down.png')
+                        })
+                        .animate({"left": "+=5vw", "top": "+=7vh"}, 350, function () {
+                            $('.koopa').attr('src', '../img/koopa-down.png')
+                        })
+                        .animate({"top": "+=47vh", "left": "-=1vw"}, 750
+                            , function () {
+                                $('.koopa').attr('src', '../img/koopa-left.png')
+                            })
+                        .animate({"top": "+=10vh", "left": "-=11vw"}, 450)
+                        .animate({"left": "-=10vw"}, 350, function () {
                             $('.koopa').attr('src', '../img/koopa-up.png')
                         })
-                    .animate({"left": "+=650px", "top": "-=400px"}, 950, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"left": "+=150px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"top": "+=400px", "left": "-=25px"}, 750
-                        , function() {
+                        .animate({"top": "-=35vh", "left": "-=15vw"}, 650, function () {
                             $('.koopa').attr('src', '../img/koopa-left.png')
                         })
-                    .animate({"top": "+=125px", "left": "-=125px"}, 450)
-                    .animate({"left": "-=125px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-up.png')
-                    })
-                    .animate({"top": "-=350px", "left": "-=250px"}, 650, function() {
-                        $('.koopa').attr('src', '../img/koopa-left.png')
-                    })
-                    .animate({"top": "-=225px", "left": "-=400px"}, 750)
-                    .animate({"left": "-=125px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"left": "-=125px", "top": "+=50px"}, 350)
-                    .animate({"top": "+=400px", "left": "+=25px"}, 750, function() {
-                        $('.koopa').attr('src', '../img/koopa-right.png')
-                    })
-                    .animate({"left": "+=100px", "top": "+=50px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-right.png')
-                    })
-                    .animate({"left": "+=250px", "top": "-=50px"}, 550
-                        , function() {
-                            $('.koopa').attr('src', '../img/koopa-up.png')
-                        })
-                    .animate({"left": "+=650px", "top": "-=400px"}, 950, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"left": "+=150px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"top": "+=400px", "left": "-=25px"}, 750
-                        , function() {
-                            $('.koopa').attr('src', '../img/koopa-left.png')
-                        })
-                    .animate({"top": "+=125px", "left": "-=125px"}, 450)
-                    .animate({"left": "-=125px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-up.png')
-                    })
-                    .animate({"top": "-=350px", "left": "-=250px"}, 650, function() {
-                        $('.koopa').attr('src', '../img/koopa-left.png')
-                    })
-                    .animate({"top": "-=225px", "left": "-=400px"}, 750)
-                    .animate({"left": "-=125px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"left": "-=125px", "top": "+=50px"}, 350)
-                    .animate({"top": "+=400px", "left": "+=25px"}, 750, function() {
-                        $('.koopa').attr('src', '../img/koopa-right.png')
-                    })
-                    .animate({"left": "+=100px", "top": "+=50px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-right.png')
-                    })
-                    .animate({"left": "+=250px", "top": "-=50px"}, 550
-                        , function() {
-                            $('.koopa').attr('src', '../img/koopa-up.png')
-                        })
-                    .animate({"left": "+=650px", "top": "-=400px"}, 950, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"left": "+=150px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"top": "+=400px", "left": "-=25px"}, 750
-                        , function() {
-                            $('.koopa').attr('src', '../img/koopa-left.png')
-                        })
-                    .animate({"top": "+=125px", "left": "-=125px"}, 450)
-                    .animate({"left": "-=125px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-up.png')
-                    })
-                    .animate({"top": "-=350px", "left": "-=250px"}, 650, function() {
-                        $('.koopa').attr('src', '../img/koopa-left.png')
-                    })
-                    .animate({"top": "-=225px", "left": "-=400px"}, 750)
-                    .animate({"left": "-=125px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"left": "-=125px", "top": "+=50px"}, 350)
-                    .animate({"top": "+=400px", "left": "+=25px"}, 750, function() {
-                        $('.koopa').attr('src', '../img/koopa-right.png')
-                    })
-                    .animate({"left": "+=100px", "top": "+=50px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-right.png')
-                    })
-                    .animate({"left": "+=250px", "top": "-=50px"}, 550
-                        , function() {
-                            $('.koopa').attr('src', '../img/koopa-up.png')
-                        })
-                    .animate({"left": "+=650px", "top": "-=400px"}, 950, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"left": "+=150px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"top": "+=400px", "left": "-=25px"}, 750
-                        , function() {
-                            $('.koopa').attr('src', '../img/koopa-left.png')
-                        })
-                    .animate({"top": "+=125px", "left": "-=125px"}, 450)
-                    .animate({"left": "-=125px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-up.png')
-                    })
-                    .animate({"top": "-=350px", "left": "-=250px"}, 650, function() {
-                        $('.koopa').attr('src', '../img/koopa-left.png')
-                    })
-                    .animate({"top": "-=225px", "left": "-=400px"}, 750)
-                    .animate({"left": "-=125px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"left": "-=125px", "top": "+=50px"}, 350)
-                    .animate({"top": "+=400px", "left": "+=25px"}, 750, function() {
-                        $('.koopa').attr('src', '../img/koopa-right.png')
-                    })
-                    .animate({"left": "+=100px", "top": "+=50px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-right.png')
-                    })
-                    .animate({"left": "+=250px", "top": "-=50px"}, 550
-                        , function() {
-                            $('.koopa').attr('src', '../img/koopa-up.png')
-                        })
-                    .animate({"left": "+=650px", "top": "-=400px"}, 950, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"left": "+=150px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-down.png')
-                    })
-                    .animate({"top": "+=400px", "left": "-=25px"}, 750
-                        , function() {
-                            $('.koopa').attr('src', '../img/koopa-left.png')
-                        })
-                    .animate({"top": "+=125px", "left": "-=125px"}, 450)
-                    .animate({"left": "-=125px"}, 350, function() {
-                        $('.koopa').attr('src', '../img/koopa-up.png')
-                    })
-                    .animate({"top": "-=350px", "left": "-=250px"}, 650, function() {
-                        $('.koopa').attr('src', '../img/koopa-left.png')
-                    })
-                    .animate({"top": "-=225px", "left": "-=400px"}, 750);
+                        .animate({"top": "-=30.1vh", "left": "-=27.35vw"}, 750);
+                }
             }
         });
     </script>

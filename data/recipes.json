@@ -1,0 +1,38 @@
+[
+  {
+  "name": "Lasagna",
+  "source": "https://www.delish.com/cooking/recipe-ideas/recipes/a51337/classic-lasagna-recipe/"
+  },
+  {
+    "name": "Ask Me Again, Later",
+    "source": "https://www.grubhub.com/"
+  },
+  {
+    "name": "Hamburgers",
+    "source": "https://www.allrecipes.com/recipe/25473/the-perfect-basic-burger/"
+  },
+  {
+    "name": "Chicken Parmesan",
+    "source": "https://www.allrecipes.com/recipe/223042/chicken-parmesan/"
+  },
+  {
+    "name": "Ribeye Steak",
+    "source": "https://www.certifiedangusbeef.com/recipes/recipedetail.aspx?id=628"
+  },
+  {
+    "name": "Waffles",
+    "source": "https://www.allrecipes.com/recipe/22180/waffles-i/"
+  },
+  {
+    "name": "Pork Chops",
+    "source": "https://www.delish.com/cooking/recipe-ideas/a58720/oven-baked-pork-chops-recipe/"
+  },
+  {
+    "name": "Tonkatsu",
+    "source": "https://www.justonecookbook.com/tonkatsu/"
+  },
+  {
+    "name": "Chicken Tenders",
+    "source": "https://www.allrecipes.com/recipe/8994/breaded-chicken-fingers/?internalSource=hub%20recipe&referringId=17372&referringContentType=Recipe%20Hub&clickId=cardslot%205"
+  }
+]
