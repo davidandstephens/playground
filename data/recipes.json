@@ -34,5 +34,29 @@
   {
     "name": "Chicken Tenders",
     "source": "https://www.allrecipes.com/recipe/8994/breaded-chicken-fingers/?internalSource=hub%20recipe&referringId=17372&referringContentType=Recipe%20Hub&clickId=cardslot%205"
+  },
+  {
+    "name": "Chicken Cordon Bleu",
+    "source": "https://www.delish.com/cooking/recipe-ideas/a27572327/chicken-cordon-bleu-recipe/"
+  },
+  {
+    "name": "Spaghetti",
+    "source": "https://www.allrecipes.com/recipe/158140/spaghetti-sauce-with-ground-beef/"
+  },
+  {
+    "name": "Grilled Chicken Breast",
+    "source": "https://www.delish.com/cooking/recipe-ideas/a53483/best-grilled-chicken-breast-recipe/"
+  },
+  {
+    "name": "Grilled Salmon",
+    "source": "https://www.allrecipes.com/recipe/12720/grilled-salmon-i/"
+  },
+  {
+    "name": "Fried Catfish",
+    "source": "https://www.simplyrecipes.com/recipes/fried_catfish/"
+  },
+  {
+    "name": "Grilled Cheese Sandwich",
+    "source": "https://www.allrecipes.com/recipe/23891/grilled-cheese-sandwich/"
   }
 ]
