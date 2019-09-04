@@ -32,7 +32,7 @@
         }
         #map {
             width:100%;
-            height: 270px;
+            height: 405px;
         }
         .card-content h3 {
             margin: 5px;
@@ -360,19 +360,34 @@
                     let todayHighAndLow = getTheTemperatures(data, 0);
                     let todayWeatherInfo = getWeatherInfo(data, 0);
                     let todayIcon = selectIcon(data, 0);
-                    let todayPercipText = todayWeatherInfo.percipChance + "% chance of " + todayWeatherInfo.percipType + ".";
+                    let todayPercipText;
+                    if (todayWeatherInfo.percipType !== undefined) {
+                        todayPercipText = todayWeatherInfo.percipChance + "% chance of " + todayWeatherInfo.percipType + ".";
+                    } else {
+                        todayPercipText = "0% chance of precipitation."
+                    }
                     let todayTempText = todayHighAndLow.high + "˚F / " + todayHighAndLow.low + "˚F";
                     let tomorrow = getDate(data, 1);
                     let tomHighAndLow = getTheTemperatures(data, 1);
                     let tomWeatherInfo = getWeatherInfo(data, 1);
                     let tomIcon = selectIcon(data, 1);
-                    let tomPercipText = tomWeatherInfo.percipChance + "% chance of " + tomWeatherInfo.percipType + ".";
+                    let tomPercipText;
+                    if (tomWeatherInfo.percipType !== undefined) {
+                        tomPercipText = tomWeatherInfo.percipChance + "% chance of " + tomWeatherInfo.percipType + ".";
+                    } else {
+                        tomPercipText = "0% chance of precipitation."
+                    }
                     let tomTempText = tomHighAndLow.high + "˚F / " + tomHighAndLow.low + "˚F";
                     let inTwoDays = getDate(data, 2);
                     let twoDaysHighAndLow = getTheTemperatures(data, 2);
                     let twoDaysWeatherInfo = getWeatherInfo(data, 2);
                     let twoDaysIcon = selectIcon(data, 2);
-                    let twoDaysPercipText = twoDaysWeatherInfo.percipChance + "% chance of " + twoDaysWeatherInfo.percipType + ".";
+                    let twoDaysPercipText;
+                    if (twoDaysWeatherInfo.percipType !== undefined) {
+                        twoDaysPercipText = twoDaysWeatherInfo.percipChance + "% chance of " + twoDaysWeatherInfo.percipType + ".";
+                    } else {
+                        twoDaysPercipText = "0% chance of precipitation."
+                    }
                     let twoDaysTempText = twoDaysHighAndLow.high + "˚F / " + twoDaysHighAndLow.low + "˚F";
                     cityHeader();
                     $('#today-icon').attr('src', todayIcon).toggleClass("loading");

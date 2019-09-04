@@ -58,5 +58,53 @@
   {
     "name": "Grilled Cheese Sandwich",
     "source": "https://www.allrecipes.com/recipe/23891/grilled-cheese-sandwich/"
+  },
+  {
+    "name": "Future Uncertain",
+    "source": "https://www.doordash.com/"
+  },
+  {
+    "name": "New York Strip Steak",
+    "source": "https://www.foodnetwork.com/recipes/bobby-flay/perfectly-grilled-steak-recipe-1973350"
+  },
+  {
+    "name": "Sirloin Steak",
+    "source": "https://tipbuzz.com/sirloin-steak/"
+  },
+  {
+    "name": "Philly Cheesesteak",
+    "source": "https://www.mrfood.com/Sandwiches/Philly-Cheese-Steak-Sandwiches"
+  },
+  {
+    "name": "Pancakes",
+    "source": "https://www.allrecipes.com/recipe/21014/good-old-fashioned-pancakes/"
+  },
+  {
+    "name": "Pot Roast",
+    "source": "https://thestayathomechef.com/pot-roast/"
+  },
+  {
+    "name": "Ravioli",
+    "source": "https://www.foodnetwork.com/recipes/food-network-kitchen/skillet-chicken-and-ravioli-recipe-2112259"
+  },
+  {
+    "name": "Fettuccine Alfredo",
+    "source": "https://www.allrecipes.com/recipe/23431/to-die-for-fettuccine-alfredo/"
+  },
+  {
+    "name": "Brisket",
+    "source": "https://www.kingsford.com/how-to/smoke-a-brisket/"
+  },
+  {
+    "name": "Buffalo Chicken Wings",
+    "source": "https://www.allrecipes.com/recipe/24087/restaurant-style-buffalo-chicken-wings/"
+  },
+  {
+    "name": "Skirt Steak Fajitas",
+    "source": "https://www.seriouseats.com/recipes/2013/06/grilled-skirt-steak-fajitas-food-lab-recipe.html"
+  },
+  {
+    "name": "Chicken Fajitas",
+    "source": "https://www.tasteofhome.com/recipes/flavorful-chicken-fajitas/"
   }
 ]

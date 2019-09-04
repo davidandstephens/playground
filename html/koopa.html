@@ -67,14 +67,13 @@
             if (document.getElementById("koopa-gif") !== null) {
                 document.getElementById("koopa-gif").removeAttribute("id", "koopa-gif");
             }
-            e.preventDefault();
             let keyPress = e.key;
-            if (keyPress === 'Enter') {
+            if (keyPress === 'f') {
 
                     $('.koopa')
                         .attr('src', '../img/koopa-left.png')
                         .css('left', '23vw')
-                        .css('top', '7vh')
+                        .css('top', '5vh')
                         .delay(3000);
                 for (let i = 1; i <= 3; i++) {
                     $('.koopa')
@@ -92,7 +91,7 @@
                             , function () {
                                 $('.koopa').attr('src', '../img/koopa-up.png')
                             })
-                        .animate({"left": "+=35vw", "top": "-=36vh"}, 950, function () {
+                        .animate({"left": "+=35vw", "top": "-=38vh"}, 950, function () {
                             $('.koopa').attr('src', '../img/koopa-down.png')
                         })
                         .animate({"left": "+=5vw", "top": "+=7vh"}, 350, function () {
@@ -106,10 +105,10 @@
                         .animate({"left": "-=10vw"}, 350, function () {
                             $('.koopa').attr('src', '../img/koopa-up.png')
                         })
-                        .animate({"top": "-=35vh", "left": "-=15vw"}, 650, function () {
+                        .animate({"top": "-=38vh", "left": "-=15vw"}, 650, function () {
                             $('.koopa').attr('src', '../img/koopa-left.png')
                         })
-                        .animate({"top": "-=30.1vh", "left": "-=27.35vw"}, 750);
+                        .animate({"top": "-=29vh", "left": "-=27.5vw"}, 750);
                 }
             }
         });
