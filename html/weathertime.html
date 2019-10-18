@@ -32,7 +32,7 @@
         }
         #map {
             width:100%;
-            height: 405px;
+            height: 400px;
         }
         .card-content h3 {
             margin: 5px;
@@ -100,7 +100,7 @@
                         <img src="../img/weather-bar.png" alt="colorful bar">
                     </div>
                     <div class="card-content">
-                        <img class="responsive-img center-img" id="today-icon" src="../img/Ripple-1s-200px.gif" alt="weather">
+                        <img class="responsive-img center-img" id="today-icon" src="../img/block-loader.gif" alt="weather">
                         <div  id="today-weather">
 
                         </div>
@@ -116,7 +116,7 @@
                         <img src="../img/weather-bar.png" alt="colorful bar">
                     </div>
                     <div class="card-content">
-                        <img class="responsive-img center-img" id="tomorrow-icon" src="../img/Ripple-1s-200px.gif" alt="weather">
+                        <img class="responsive-img center-img" id="tomorrow-icon" src="../img/block-loader-2.gif" alt="weather">
                         <div  id="tomorrow-weather">
 
                         </div>
@@ -132,7 +132,7 @@
                         <img src="../img/weather-bar.png" alt="colorful bar">
                     </div>
                     <div class="card-content">
-                        <img class="responsive-img center-img" id="in-two-days-icon" src="../img/Ripple-1s-200px.gif" alt="weather">
+                        <img class="responsive-img center-img" id="in-two-days-icon" src="../img/block-loader.gif" alt="weather">
                         <div  id="in-two-days-weather">
 
                         </div>
@@ -350,9 +350,9 @@
         });
 
         const weatherF = () => {
-            $('#today-icon').attr('src', '../img/Ripple-1s-200px.gif').toggleClass("loading");
-            $('#tomorrow-icon').attr('src', '../img/Ripple-1s-200px.gif').toggleClass("loading");
-            $('#in-two-days-icon').attr('src', '../img/Ripple-1s-200px.gif').toggleClass("loading");
+            $('#today-icon').attr('src', '../img/block-loader.gif').toggleClass("loading");
+            $('#tomorrow-icon').attr('src', '../img/block-loader-2.gif').toggleClass("loading");
+            $('#in-two-days-icon').attr('src', '../img/block-loader.gif').toggleClass("loading");
             clearWeatherInfo();
             $.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lat},${long}`).done((data) => {
                 let today = getDate(data, 0);
@@ -402,9 +402,9 @@
         };
 
         const weatherC = () => {
-            $('#today-icon').attr('src', '../img/Ripple-1s-200px.gif').toggleClass("loading");
-            $('#tomorrow-icon').attr('src', '../img/Ripple-1s-200px.gif').toggleClass("loading");
-            $('#in-two-days-icon').attr('src', '../img/Ripple-1s-200px.gif').toggleClass("loading");
+            $('#today-icon').attr('src', '../img/block-loader.gif').toggleClass("loading");
+            $('#tomorrow-icon').attr('src', '../img/block-loader-2.gif').toggleClass("loading");
+            $('#in-two-days-icon').attr('src', '../img/block-loader.gif').toggleClass("loading");
             clearWeatherInfo();
             $.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lat},${long}?units=si`).done((data) => {
                 let today = getDate(data, 0);
