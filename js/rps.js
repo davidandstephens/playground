@@ -19,7 +19,7 @@ const pickRock = () => {
       document.getElementById('comp').innerHTML = '<img src="../img/comp-paper-win.png" class="fighter" alt="paper">';
       document.getElementById('result').innerHTML = 'You Lose...';
   }
-  document.getElementById('past-results').append(newRow);
+    document.getElementById('past-results').prepend(newRow);
 };
 
 const pickPaper = () => {
@@ -41,7 +41,7 @@ const pickPaper = () => {
         document.getElementById('comp').innerHTML = '<img src="../img/comp-sciss-win.png" class="fighter" alt="scissors">';
         document.getElementById('result').innerHTML = 'You Lose...';
     }
-    document.getElementById('past-results').append(newRow);
+    document.getElementById('past-results').prepend(newRow);
 };
 
 const pickScissors = () => {
@@ -63,7 +63,7 @@ const pickScissors = () => {
         document.getElementById('comp').innerHTML = '<img src="../img/comp-rock-win.png" class="fighter" alt="rock">';
         document.getElementById('result').innerHTML = 'You Lose...';
     }
-    document.getElementById('past-results').append(newRow);
+    document.getElementById('past-results').prepend(newRow);
 };
 
 document.getElementById('rock').addEventListener("click", pickRock, false);

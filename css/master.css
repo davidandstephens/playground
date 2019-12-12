@@ -75,7 +75,7 @@ nav {
 table {
     width: 100%;
 }
-tr:nth-child(1) {
+thead tr {
     background: #99D5C9;
 }
 
