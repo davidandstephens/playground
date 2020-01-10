@@ -36,7 +36,7 @@
             width: 100%;
             grid-area: 1 / 2 / 2 / 3;
         }
-        #yellow {
+        #turq {
             width: 100%;
             grid-area: 2 / 1 / 3 / 2;
         }
@@ -47,7 +47,7 @@
 
         #text {
             position: absolute;
-            top: calc(50vh - 58px);
+            top: calc(50vh - 54px);
             left: calc(50vw - 92px);
             display: flex;
             flex-direction: column;
@@ -70,22 +70,22 @@
             margin-top: 20px;
         }
 
-        #play-button {
+        #easy-button {
             background: #00c853;
             border-radius: 20%;
             border: solid 5px gainsboro;
             padding: 5px;
             color: #282F44;
-            font-size: 24px;
+            font-size: 18px;
         }
 
-        #reset-button {
+        #hard-button {
             background: gold;
             border-radius: 20%;
             border: solid 5px gainsboro;
             padding: 5px;
             color: #282F44;
-            font-size: 24px;
+            font-size: 18px;
         }
 
     </style>
@@ -95,13 +95,13 @@
         <div id="text">
             <h1>Symon Sez!</h1>
             <h2>
-                <button id="play-button">Play</button> - <button id="reset-button">Reset</button>
+                <button id="easy-button">Easy</button> - <button id="hard-button">Hard</button>
             </h2>
         </div>
         <div id="grid-container">
             <img id="red" src="../img/red.png" alt="red">
             <img id="green" src="../img/green.png" alt="green">
-            <img id="yellow" src="../img/yellow.png" alt="yellow">
+            <img id="turq" src="../img/turq.png" alt="turquoise">
             <img id="blue" src="../img/blue.png" alt="blue">
         </div>
     </main>
@@ -112,8 +112,9 @@
         let userInput;
         let sequence;
         let reverseSequence;
+        let difficulty = "";
 
-        const sequenceMaker = (roundNum) => {
+        const sequenceMakerHard = (roundNum) => {
             let sequence = [];
             for (let i = 1; i <= roundNum; i++) {
                 sequence.push(Math.floor(Math.random() * 4) + 1);
@@ -121,35 +122,66 @@
             return sequence;
         };
 
-        document.getElementById("play-button").addEventListener("click", () => {
-            userInput = [];
-            sequence = sequenceMaker(roundCount);
-            reverseSequence = sequence.slice().reverse();
-            showSequence(sequence.length);
-        });
+        const sequenceMakerEasy = (seq) => {
+            seq.push(Math.floor(Math.random() * 4) + 1);
+            return seq;
+        };
 
-        document.getElementById("reset-button").addEventListener("click", () => {
+
+        document.getElementById("hard-button").addEventListener("click", () => {
             userInput = [];
             roundCount = 1;
-            sequence = sequenceMaker(roundCount);
+            difficulty = "hard";
+            sequence = sequenceMakerHard(roundCount);
             reverseSequence = sequence.slice().reverse();
             showSequence(sequence.length);
         });
 
-        const codeCheck = () => {
+        document.getElementById("easy-button").addEventListener("click", () => {
+            userInput = [];
+            roundCount = 1;
+            difficulty = "easy";
+            sequence = sequenceMakerHard(roundCount);
+            reverseSequence = sequence.slice().reverse();
+            showSequence(sequence.length);
+        });
+
+        const codeCheckHard = () => {
             if (sequence.length === userInput.length) {
                 for(let i = 0; i < sequence.length; i++) {
                     if (sequence[i] !== userInput[i]) {
                         roundCount = 1;
                         userInput = [];
-                        sequence = sequenceMaker(roundCount);
+                        sequence = sequenceMakerHard(roundCount);
                         reverseSequence = sequence.slice().reverse();
                         showSequence(sequence.length);
                         break;
                     } else if (i === sequence.length - 1) {
                         roundCount++;
                         userInput = [];
-                        sequence = sequenceMaker(roundCount);
+                        sequence = sequenceMakerHard(roundCount);
+                        reverseSequence = sequence.slice().reverse();
+                        showSequence(sequence.length);
+                        break;
+                    }
+                }
+            }
+        };
+
+        const codeCheckEasy = () => {
+            if (sequence.length === userInput.length) {
+                for(let i = 0; i < sequence.length; i++) {
+                    if (sequence[i] !== userInput[i]) {
+                        roundCount = 1;
+                        userInput = [];
+                        sequence = sequenceMakerEasy(sequence);
+                        reverseSequence = sequence.slice().reverse();
+                        showSequence(sequence.length);
+                        break;
+                    } else if (i === sequence.length - 1) {
+                        roundCount++;
+                        userInput = [];
+                        sequence = sequenceMakerEasy(sequence);
                         reverseSequence = sequence.slice().reverse();
                         showSequence(sequence.length);
                         break;
@@ -164,7 +196,11 @@
             setTimeout(() => {
                 document.getElementById("red").src = "../img/red.png";
             }, 500);
-            codeCheck();
+            if (difficulty === "hard") {
+                codeCheckHard();
+            } else {
+                codeCheckEasy();
+            }
         });
 
         document.getElementById("green").addEventListener("click", () => {
@@ -173,16 +209,24 @@
             setTimeout(() => {
                 document.getElementById("green").src = "../img/green.png";
             }, 500);
-            codeCheck();
+            if (difficulty === "hard") {
+                codeCheckHard();
+            } else {
+                codeCheckEasy();
+            }
         });
 
-        document.getElementById("yellow").addEventListener("click", () => {
-            document.getElementById("yellow").src = "../img/yellow-pressed.png";
+        document.getElementById("turq").addEventListener("click", () => {
+            document.getElementById("turq").src = "../img/turq-pressed.png";
             userInput.push(3);
             setTimeout(() => {
-                document.getElementById("yellow").src = "../img/yellow.png";
+                document.getElementById("turq").src = "../img/turq.png";
             }, 500);
-            codeCheck();
+            if (difficulty === "hard") {
+                codeCheckHard();
+            } else {
+                codeCheckEasy();
+            }
         });
 
         document.getElementById("blue").addEventListener("click", () => {
@@ -191,7 +235,11 @@
             setTimeout(() => {
                 document.getElementById("blue").src = "../img/blue.png";
             }, 500);
-            codeCheck();
+            if (difficulty === "hard") {
+                codeCheckHard();
+            } else {
+                codeCheckEasy();
+            }
         });
 
         function showSequence(i) {
@@ -206,9 +254,9 @@
                     document.getElementById("green").src = "../img/green.png";
                 }, 500);
             } else if (reverseSequence[i] === 3) {
-                document.getElementById("yellow").src = "../img/yellow-pressed.png";
+                document.getElementById("turq").src = "../img/turq-pressed.png";
                 setTimeout(() => {
-                    document.getElementById("yellow").src = "../img/yellow.png";
+                    document.getElementById("turq").src = "../img/turq.png";
                 }, 500);
             } else if (reverseSequence[i] === 4) {
                 document.getElementById("blue").src = "../img/blue-pressed.png";
