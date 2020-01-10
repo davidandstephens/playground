@@ -64,6 +64,7 @@
         #text h1 {
             font-size: 36px;
             font-family: 'Mansalva', cursive;
+            text-shadow: 5px 5px #212121;
         }
 
         #text h2 {
@@ -77,6 +78,7 @@
             padding: 5px;
             color: #282F44;
             font-size: 18px;
+            box-shadow: 4px 4px #212121;
         }
 
         #hard-button {
@@ -86,6 +88,7 @@
             padding: 5px;
             color: #282F44;
             font-size: 18px;
+            box-shadow: 4px 4px #212121;
         }
 
     </style>
@@ -106,10 +109,12 @@
         </div>
     </main>
 
+    <h1 id="round-counter"></h1>
+
     <script>
 
         let roundCount = 1;
-        let userInput;
+        let userInput = [];
         let sequence;
         let reverseSequence;
         let difficulty = "";
@@ -174,7 +179,7 @@
                     if (sequence[i] !== userInput[i]) {
                         roundCount = 1;
                         userInput = [];
-                        sequence = sequenceMakerEasy(sequence);
+                        sequence = sequenceMakerEasy([]);
                         reverseSequence = sequence.slice().reverse();
                         showSequence(sequence.length);
                         break;
