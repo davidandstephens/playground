@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Grid</title>
+    <link href="https://fonts.googleapis.com/css?family=Barlow&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Barlow', sans-serif;
+        }
+        code {
+            font-family: monospace;
+            background: #f2f2f2;
+        }
+        #grid-one {
+            background: #face0a;
+            display: grid;
+            height: 500px;
+            width: 500px;
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+        #grid-one div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            background: deepskyblue;
+            border: 5px solid steelblue;
+        }
+        #grid-one #big-one{
+            grid-area: 2 / 2 / 4 / 4;
+            background: seagreen;
+            border: 5px solid darkgreen;
+            color: white;
+        }
+        #grid-gap {
+            position: absolute;
+            left: 515px;
+            top: 224px;
+        }
+        #grid-col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            left: 515px;
+            top: 40px;
+        }
+        #col-bracket {
+            font-size: 174px;
+            font-weight: lighter;
+            position: relative;
+            top: -11px;
+        }
+        #grid-row {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            left: 30px;
+            top: 460px;
+        }
+        #row-bracket {
+            transform: rotate(90deg);
+            font-size: 174px;
+            font-weight: lighter;
+            position: relative;
+            top: 45px;
+        }
+        #moving-to-look-less-weird {
+            position: relative;
+            left: -8px;
+            top: -25px;
+        }
+        #move-down {
+            position: relative;
+            top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <p>In this lesson, we'll be discussing what the CSS Grid is, and how we can implement it.</p>
+    <p>Let's start by identifying the different parts of the grid.</p>
+    <div id="grid-one">
+        <div>Grid Cell</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div id="big-one">
+            Grid Area
+        </div>
+    </div>
+    <p id="grid-gap"><-- Grid Gap</p>
+    <p id="grid-col"><span id="col-bracket">}</span> Grid Row/Track</p>
+    <p id="grid-row"><span id="row-bracket">}</span><span id="moving-to-look-less-weird">Grid Column/Track</span></p>
+    <p id="move-down">The grid above is using <code>display: grid;</code> as well as <code>grid-template-columns: repeat(3, 1fr);</code> and <code>grid-template-rows: repeat(3, 1fr);</code></p>
+</body>
+</html>

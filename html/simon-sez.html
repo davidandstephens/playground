@@ -77,7 +77,7 @@
             border: solid 5px gainsboro;
             padding: 5px;
             color: #282F44;
-            font-size: 18px;
+            font-size: 28px;
             box-shadow: 4px 4px #212121;
         }
 
@@ -87,8 +87,17 @@
             border: solid 5px gainsboro;
             padding: 5px;
             color: #282F44;
-            font-size: 18px;
+            font-size: 28px;
             box-shadow: 4px 4px #212121;
+        }
+
+        #round-counter {
+            position: absolute;
+            top: 2vh;
+            right: 5vh;
+            font-size: 36px;
+            font-family: 'Mansalva', cursive;
+            text-shadow: 5px 5px #212121;
         }
 
     </style>
@@ -274,6 +283,7 @@
                     showSequence(i);
                 }, 1000);
             }
+            document.getElementById("round-counter").innerText = "Round " + roundCount;
         }
     </script>
 </body>
