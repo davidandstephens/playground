@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loops Bonuses</title>
+</head>
+<body>
+    <h1>JS Loops Bonuses</h1>
+    <script>
+        "use strict";
+
+        (() => {
+            const ninetyNineBottles = (num) => {
+                for (let i = 99; i >= num; i--) {
+                    if (num >= 99 || isNaN(parseInt(num)) || num < 0) {
+                        console.log("Aw no, I'm not doing this song again!");
+                        break;
+                    } else if (i === num && i !== 0) {
+                        console.log("Let's stop there, honey. Mommy's got a headache.");
+                        break;
+                    } else if (i === 0) {
+                        console.log("No more bottles of beer on the wall, no more bottles of beer. I fall down, onto the ground. 99 bottles of air on the ground.");
+                    } else if (i === 1) {
+                        console.log("One bottle of beer on the wall, one bottles of beer. Take it down, pass it around. No more bottles of beer on the wall.");
+                    } else {
+                        console.log(`${i} bottles of beer on the wall, ${i} bottles of beer. Take one down, pass it around ${i - 1} bottles of beer on the wall.`);
+                    }
+                }
+            };
+
+            for (let i = 0; i.toString(16).toUpperCase() !== '100'; i++) {
+                console.log(i.toString(16).toUpperCase());
+            }
+
+            let waterDrank = 0;
+
+            do {
+                if (confirm("Have you drink a glass of water today?")) {
+                    waterDrank++;
+                }
+            } while (waterDrank < 6);
+
+            console.log("Glasses of water:", waterDrank);
+
+            ninetyNineBottles(99);
+            ninetyNineBottles(97);
+            ninetyNineBottles(0);
+            ninetyNineBottles(-2);
+        })();
+    </script>
+</body>
+</html>

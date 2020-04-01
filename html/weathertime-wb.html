@@ -179,55 +179,89 @@
         let inC = false;
         let inF = true;
 
+        $.get(`https://api.weatherbit.io/v2.0/forecast/daily?units=i&lat=29.4241&lon=-98.4936&key=${weatherbitKey}`).done(resp => console.log(resp.data[0], resp.data[1], resp.data[2]));
+
         const getTheTemperatures = (data, index) => {
             return {
-                high: Math.round(data.daily.data[index].temperatureHigh),
-                low: Math.round(data.daily.data[index].temperatureLow)
+                high: Math.round(data.data[index].max_temp),
+                low: Math.round(data.data[index].min_temp)
             };
         };
 
-        const getWeatherInfo = (data, index) => {
+        const getWeatherInfo = (resp, index) => {
             return {
-                percipType: data.daily.data[index].precipType,
-                percipChance: Math.round(data.daily.data[index].precipProbability * 100),
-                dewPoint: Math.round(data.daily.data[index].dewPoint),
-                humidity: data.daily.data[index].humidity * 100,
-                windSpeed: data.daily.data[index].windSpeed
+                percipType: resp.data[index].precip,
+                percipChance: resp.data[index].pop,
+                weatherSummary: resp.data[index].weather.description,
+                dewPoint: Math.round(resp.data[index].dewPoint),
+                humidity: resp.data[index].humidity * 100,
+                windSpeed: resp.data[index].windSpeed
         }
         };
 
         const selectIcon = (data, index) => {
             let iconSelected = "../img/weather-icons/";
-            switch (data.daily.data[index].icon) {
-                case 'clear-day':
-                    iconSelected += "029-sunrise.png";
+            switch (data.data[index].weather.code) {
+                case 800:
+                    if (data.data[index].weather.icon === 'c01d') {
+                        iconSelected += "029-sunrise.png";
+                    } else {
+                        iconSelected += '031-night.png';
+                    }
                     break;
-                case 'clear-night':
-                    iconSelected += '031-night.png';
+                case 200:
+                case 201:
+                case 202:
+                case 230:
+                case 231:
+                case 232:
+                case 233:
+                    iconSelected += '005-thunderstorm.png';
                     break;
-                case 'rain':
+                case 300:
+                case 301:
+                case 302:
+                case 500:
+                case 501:
+                case 502:
+                case 520:
+                case 511:
+                case 521:
+                case 522:
                     iconSelected += '049-umbrella.png';
                     break;
-                case 'snow':
+                case 600:
+                case 601:
+                case 602:
+                case 621:
+                case 622:
+                case 623:
                     iconSelected += '053-snowman.png';
                     break;
-                case 'sleet':
+                case 610:
+                case 611:
+                case 612:
                     iconSelected += '053-snowman.png';
                     break;
-                case 'wind':
-                    iconSelected += '051-windsign.png';
-                    break;
-                case 'fog':
+                case 741:
+                case 751:
+                case 721:
+                case 731:
+                case 711:
+                case 700:
                     iconSelected += '016-wind.png';
                     break;
-                case 'cloudy':
+                case 803:
+                case 804:
                     iconSelected += '014-cloud.png';
                     break;
-                case 'partly-cloudy-day':
-                    iconSelected += '013-cloudy.png';
-                    break;
-                case 'partly-cloudy-night':
-                    iconSelected += '055-night.png';
+                case 802:
+                case 801:
+                    if (data.data[index].weather.icon.includes('d')) {
+                        iconSelected += '013-cloudy.png';
+                    } else {
+                        iconSelected += '055-night.png';
+                    }
                     break;
                 default:
                     iconSelected += 'ghost.png';
@@ -258,8 +292,8 @@
             });
         };
 
-        const getDate = (data, index) => {
-            let dateObject = new Date(data.daily.data[index].time * 1000);
+        const getDate = (resp, index) => {
+            let dateObject = new Date(resp.data[index].valid_date);
             let day = '';
             let month = '';
 
@@ -284,6 +318,9 @@
                     break;
                 case 6:
                     day = 'Saturday';
+                    break;
+                default:
+                    day = 'Stan\'s Day';
                     break;
             }
             switch (dateObject.getMonth()) {
@@ -354,49 +391,37 @@
             $('#tomorrow-icon').attr('src', '../img/block-loader-2.gif').toggleClass("loading");
             $('#in-two-days-icon').attr('src', '../img/block-loader.gif').toggleClass("loading");
             clearWeatherInfo();
-            $.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lat},${long}`).done((data) => {
+            $.get(`https://api.weatherbit.io/v2.0/forecast/daily?units=i&lat=${lat}&lon=${long}&key=${weatherbitKey}`).done((data) => {
                 let today = getDate(data, 0);
                 let todayHighAndLow = getTheTemperatures(data, 0);
                 let todayWeatherInfo = getWeatherInfo(data, 0);
                 let todayIcon = selectIcon(data, 0);
-                let todayPercipText;
-                if (todayWeatherInfo.percipType !== undefined) {
-                    todayPercipText = todayWeatherInfo.percipChance + "% chance of " + todayWeatherInfo.percipType + ".";
-                } else {
-                    todayPercipText = "0% chance of precipitation."
-                }
+                let todayPercipText = todayWeatherInfo.percipChance + "% chance of precipitation.";
                 let todayTempText = todayHighAndLow.high + "˚F / " + todayHighAndLow.low + "˚F";
+                let todaySummary = todayWeatherInfo.weatherSummary;
                 let tomorrow = getDate(data, 1);
                 let tomHighAndLow = getTheTemperatures(data, 1);
                 let tomWeatherInfo = getWeatherInfo(data, 1);
                 let tomIcon = selectIcon(data, 1);
-                let tomPercipText;
-                if (tomWeatherInfo.percipType !== undefined) {
-                    tomPercipText = tomWeatherInfo.percipChance + "% chance of " + tomWeatherInfo.percipType + ".";
-                } else {
-                    tomPercipText = "0% chance of precipitation."
-                }
+                let tomPercipText = tomWeatherInfo.percipChance + "% chance of precipitation.";
                 let tomTempText = tomHighAndLow.high + "˚F / " + tomHighAndLow.low + "˚F";
+                let tomSummary = tomWeatherInfo.weatherSummary;
                 let inTwoDays = getDate(data, 2);
                 let twoDaysHighAndLow = getTheTemperatures(data, 2);
                 let twoDaysWeatherInfo = getWeatherInfo(data, 2);
                 let twoDaysIcon = selectIcon(data, 2);
-                let twoDaysPercipText;
-                if (twoDaysWeatherInfo.percipType !== undefined) {
-                    twoDaysPercipText = twoDaysWeatherInfo.percipChance + "% chance of " + twoDaysWeatherInfo.percipType + ".";
-                } else {
-                    twoDaysPercipText = "0% chance of precipitation."
-                }
+                let twoDaysPercipText = twoDaysWeatherInfo.percipChance + "% chance of precipitation.";
                 let twoDaysTempText = twoDaysHighAndLow.high + "˚F / " + twoDaysHighAndLow.low + "˚F";
+                let twoDaysSummary = twoDaysWeatherInfo.weatherSummary;
                 cityHeader();
                 $('#today-icon').attr('src', todayIcon).toggleClass("loading");
-                $('#today-weather').html('').append('<h3 class="center-align">' + todayTempText + '</h3><p class="center-align">' + todayPercipText + '</p>');
+                $('#today-weather').html('').append('<h3 class="center-align">' + todayTempText + '</h3><p class="center-align">' + todaySummary + '</p><p class="center-align">' + todayPercipText + '</p>');
                 $('#today-date').html('').append('<h5>' + today.day + ', ' + today.month + ' ' + today.date + '</h5>');
                 $('#tomorrow-icon').attr('src', tomIcon).toggleClass("loading");
-                $('#tomorrow-weather').html('').append('<h3 class="center-align">' + tomTempText + '</h3><p class="center-align">' + tomPercipText + '</p>');
+                $('#tomorrow-weather').html('').append('<h3 class="center-align">' + tomTempText + '</h3><p class="center-align">' + tomSummary + '</p><p class="center-align">' + tomPercipText + '</p>');
                 $('#tomorrow-date').html('').append('<h5>' + tomorrow.day + ', ' + tomorrow.month + ' ' + tomorrow.date + '</h5>');
                 $('#in-two-days-icon').attr('src', twoDaysIcon).toggleClass("loading");
-                $('#in-two-days-weather').html('').append('<h3 class="center-align">' + twoDaysTempText + '</h3><p class="center-align">' + twoDaysPercipText + '</p>');
+                $('#in-two-days-weather').html('').append('<h3 class="center-align">' + twoDaysTempText + '</h3><p class="center-align">' + twoDaysSummary + '</p><p class="center-align">' + twoDaysPercipText + '</p>');
                 $('#in-two-days-date').html('').append('<h5>' + inTwoDays.day + ', ' + inTwoDays.month + ' ' + inTwoDays.date + '</h5>');
             })
         };
@@ -406,34 +431,37 @@
             $('#tomorrow-icon').attr('src', '../img/block-loader-2.gif').toggleClass("loading");
             $('#in-two-days-icon').attr('src', '../img/block-loader.gif').toggleClass("loading");
             clearWeatherInfo();
-            $.get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${darkSkyKey}/${lat},${long}?units=si`).done((data) => {
+            $.get(`https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${long}&key=${weatherbitKey}`).done((data) => {
                 let today = getDate(data, 0);
                 let todayHighAndLow = getTheTemperatures(data, 0);
                 let todayWeatherInfo = getWeatherInfo(data, 0);
                 let todayIcon = selectIcon(data, 0);
-                let todayPercipText = todayWeatherInfo.percipChance + "% chance of " + todayWeatherInfo.percipType + ".";
+                let todayPercipText = todayWeatherInfo.percipChance + "% chance of precipitation.";
+                let todaySummary = todayWeatherInfo.weatherSummary;
                 let todayTempText = todayHighAndLow.high + "˚C / " + todayHighAndLow.low + "˚C";
                 let tomorrow = getDate(data, 1);
                 let tomHighAndLow = getTheTemperatures(data, 1);
                 let tomWeatherInfo = getWeatherInfo(data, 1);
                 let tomIcon = selectIcon(data, 1);
-                let tomPercipText = tomWeatherInfo.percipChance + "% chance of " + tomWeatherInfo.percipType + ".";
+                let tomPercipText = tomWeatherInfo.percipChance + "% chance of precipitation.";
+                let tomSummary = tomWeatherInfo.weatherSummary;
                 let tomTempText = tomHighAndLow.high + "˚C / " + tomHighAndLow.low + "˚C";
                 let inTwoDays = getDate(data, 2);
                 let twoDaysHighAndLow = getTheTemperatures(data, 2);
                 let twoDaysWeatherInfo = getWeatherInfo(data, 2);
                 let twoDaysIcon = selectIcon(data, 2);
-                let twoDaysPercipText = twoDaysWeatherInfo.percipChance + "% chance of " + twoDaysWeatherInfo.percipType + ".";
+                let twoDaysPercipText = twoDaysWeatherInfo.percipChance + "% chance of precipitation.";
+                let twoDaysSummary = twoDaysWeatherInfo.weatherSummary;
                 let twoDaysTempText = twoDaysHighAndLow.high + "˚C / " + twoDaysHighAndLow.low + "˚C";
                 cityHeader();
                 $('#today-icon').attr('src', todayIcon).toggleClass("loading");
-                $('#today-weather').html('').append('<h3 class="center-align">' + todayTempText + '</h3><p class="center-align">' + todayPercipText + '</p>');
+                $('#today-weather').html('').append('<h3 class="center-align">' + todayTempText + '</h3><p class="center-align">' + todaySummary + '</p><p class="center-align">' + todayPercipText + '</p>');
                 $('#today-date').html('').append('<h5>' + today.day + ', ' + today.month + ' ' + today.date + '</h5>');
                 $('#tomorrow-icon').attr('src', tomIcon).toggleClass("loading");
-                $('#tomorrow-weather').html('').append('<h3 class="center-align">' + tomTempText + '</h3><p class="center-align">' + tomPercipText + '</p>');
+                $('#tomorrow-weather').html('').append('<h3 class="center-align">' + tomTempText + '</h3><p class="center-align">' + tomSummary + '</p><p class="center-align">' + tomPercipText + '</p>');
                 $('#tomorrow-date').html('').append('<h5>' + tomorrow.day + ', ' + tomorrow.month + ' ' + tomorrow.date + '</h5>');
                 $('#in-two-days-icon').attr('src', twoDaysIcon).toggleClass("loading");
-                $('#in-two-days-weather').html('').append('<h3 class="center-align">' + twoDaysTempText + '</h3><p class="center-align">' + twoDaysPercipText + '</p>');
+                $('#in-two-days-weather').html('').append('<h3 class="center-align">' + twoDaysTempText + '</h3><p class="center-align">' + twoDaysSummary + '</p><p class="center-align">' + twoDaysPercipText + '</p>');
                 $('#in-two-days-date').html('').append('<h5>' + inTwoDays.day + ', ' + inTwoDays.month + ' ' + inTwoDays.date + '</h5>');
             })
         };

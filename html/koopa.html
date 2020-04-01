@@ -64,12 +64,12 @@
         // });
 
         $(document).on('keydown', function(e) {
-            if (document.getElementById("koopa-gif") !== null) {
-                document.getElementById("koopa-gif").removeAttribute("id", "koopa-gif");
-            }
+
             let keyPress = e.key;
             if (keyPress === 'f') {
-
+                if (document.getElementById("koopa-gif") !== null) {
+                    document.getElementById("koopa-gif").removeAttribute("id", "koopa-gif");
+                }
                     $('.koopa')
                         .attr('src', '../img/koopa-left.png')
                         .css('left', '23vw')
