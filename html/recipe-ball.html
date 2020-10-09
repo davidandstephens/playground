@@ -98,7 +98,7 @@
         </div>
     </div>
 
-    <main>
+    <main id="big-picture">
         <section id="meatball" class="animated fadeIn">
             <div id="view-port">
                 <h1 id="dinner">Press Space or Click The Meatball!</h1>
@@ -113,13 +113,18 @@
 
             const getDinner = () => {
                 $.get('../data/recipes.json', {}).done(function (data) {
+                    $("#big-picture").html("<section id=\"meatball\" class=\"animated wobble\">\n" +
+                        "            <div id=\"view-port\"></div>\n" +
+                        "        </section>");
                     let random = Math.floor(Math.random() * data.length);
-                    $('#view-port').html('<h1 class="animated rotateIn" id="dinner">' + data[random].name + '</h1><img class="blue-angle animated rotateIn" src="../img/blue-angle.png" alt="blue triangle">');
-                    if ($('#recipe').html() === undefined) {
-                        $('main').append('<a id="recipe" class="animated fadeIn" href="' + data[random].source + '" target="_blank">Try this recipe!</a>')
-                    } else {
-                        $('#recipe').attr('href', data[random].source);
-                    }
+                    setTimeout(() => {
+                        $('#view-port').html('<h1 class="animated rotateIn" id="dinner">' + data[random].name + '</h1><img class="blue-angle animated rotateIn" src="../img/blue-angle.png" alt="blue triangle">');
+                        if ($('#recipe').html() === undefined) {
+                            $('main').append('<a id="recipe" class="animated fadeIn" href="' + data[random].source + '" target="_blank">Try this recipe!</a>')
+                        } else {
+                            $('#recipe').attr('href', data[random].source);
+                        }
+                    }, 250);
                 });
             };
 
