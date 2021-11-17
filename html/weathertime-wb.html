@@ -179,7 +179,7 @@
         let inC = false;
         let inF = true;
 
-        $.get(`https://api.weatherbit.io/v2.0/forecast/daily?units=i&lat=29.4241&lon=-98.4936&key=${weatherbitKey}`).done(resp => console.log(resp.data[0], resp.data[1], resp.data[2]));
+        // $.get(`https://api.weatherbit.io/v2.0/forecast/daily?units=i&lat=29.4241&lon=-98.4936&key=${weatherbitKey}`).done(resp => console.log(resp.data[0], resp.data[1], resp.data[2]));
 
         const getTheTemperatures = (data, index) => {
             return {
@@ -293,7 +293,7 @@
         };
 
         const getDate = (resp, index) => {
-            let dateObject = new Date(resp.data[index].valid_date);
+            let dateObject = new Date(resp.data[index].datetime + "T06:00:00");
             let day = '';
             let month = '';
 

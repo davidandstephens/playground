@@ -8,16 +8,13 @@
 //     this code will run if our condition is true;
 // }
 
-/** Consider the sentence: "When I run out of milk, I go to the store to get more." */
+/** Consider the sentence: "When I run out of milk: I go to the store to get more." */
 // Condition:
 // Action:
 
 
 
 /** TO-DO: I want to make a block of code that logs a message to the console when a variable is set to the number 5. */
-
-var x = 5;
-
 
 
 // We can also use our conditional logic in functions.
@@ -61,8 +58,8 @@ var x = 5;
 //     since neither the first or second conditions were met, I run by default.
 // }
 
-/** Consider the following sentence: "If I owned a cow, I'd get milk from it when I ran out. But since I
- * don't, I could go to the store, but luckily, I own a goat, so I can get milk from it instead." */
+/** Consider the following sentence: "If I owned a cow, I'd get milk from it when I ran out. If I owned a goat,
+ * I could get my milk from it, but since I don't own either of those: I'll go to the store instead." */
 
 // How would we write this as a if/else if/else code block?
 

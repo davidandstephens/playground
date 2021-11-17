@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stuff</title>
+</head>
+<body>
+<script>
+    document.getElementsByTagName("body")[0].innerHTML = `<button id="testing">Testing a thing!</button>`;
+    document.getElementById("testing").addEventListener("click", () => {
+        alert("Oh hey, it didn't work...");
+    });
+</script>
+</body>
+</html>

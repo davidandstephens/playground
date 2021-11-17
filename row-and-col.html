@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .row {
+            display: flex;
+            margin: auto;
+            width: 72vw;
+            height: 20vh;
+            border: #00c853 5px solid;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col">1</div>
+        <div class="col">2</div>
+        <div class="col">3</div>
+        <div class="col">4</div>
+    </div>
+    <input type="text" id="go-to">
+    <button id="btn"></button>
+    <script>
+        var styling = document.getElementsByTagName("style")[0].innerText;
+        styling += ".col{background: rebeccapurple; border: 2px solid red; color: antiquewhite; flex-grow: 1; display: flex; align-items: center; justify-content: center}";
+        document.getElementsByTagName("style")[0].innerText = styling;
+    </script>
+</body>
+</html>

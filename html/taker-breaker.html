@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Taker Breaker</title>
+</head>
+<body>
+  <h1>BREAK TIME!!!</h1>
+<h3>but for how long???</h3>
+<button id="fifteen">Fifteen Minutes</button>
+<button id="thirty">Thirty Minutes</button>
+<main id="return"></main>
+  <script>
+    document.getElementById("fifteen").addEventListener("click", () => {
+      let time = new Date((new Date().getTime()) + minutes * 60000);
+
+      // document.getElementById("return").innerHTML = `<h1>RETURN TO ME @ ${hour}:${mins}`
+    });
+  </script>
+</body>
+</html>

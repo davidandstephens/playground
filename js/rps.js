@@ -53,7 +53,7 @@ const pickScissors = () => {
         document.getElementById('comp').innerHTML = '<img src="../img/comp-paper-loss.png" class="fighter" alt="paper">';
         document.getElementById('result').innerHTML = 'Winner, Winner!!!';
     } else if (compPick === 3) {
-        newRow.innerHTML = '<td>Scissors</td><td>Rock</td><td>Draw Game</td>';
+        newRow.innerHTML = '<td>Scissors</td><td>Scissors</td><td>Draw Game</td>';
         document.getElementById('user').innerHTML = '<img src="../img/sciss-loss.png" class="fighter" alt="scissors">';
         document.getElementById('comp').innerHTML = '<img src="../img/comp-sciss-loss.png" class="fighter" alt="scissors">';
         document.getElementById('result').innerHTML = 'No Contest';
