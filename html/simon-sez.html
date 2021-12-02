@@ -121,12 +121,15 @@
     <h1 id="round-counter"></h1>
 
     <script>
-
         let roundCount = 1;
         let userInput = [];
         let sequence;
         let reverseSequence;
         let difficulty = "";
+        const audioR = new Audio("../data/336928__the-sacha-rush__blip3.wav");
+        const audioB = new Audio("../data/336910__the-sacha-rush__blip7.wav");
+        const audioT = new Audio("../data/336912__the-sacha-rush__blip5.wav");
+        const audioG = new Audio("../data/336929__the-sacha-rush__blip2.wav");
 
         const sequenceMakerHard = (roundNum) => {
             let sequence = [];
@@ -206,6 +209,7 @@
 
         document.getElementById("red").addEventListener("click", () => {
             document.getElementById("red").src = "../img/red-pressed.png";
+            audioR.play();
             userInput.push(1);
             setTimeout(() => {
                 document.getElementById("red").src = "../img/red.png";
@@ -219,6 +223,7 @@
 
         document.getElementById("green").addEventListener("click", () => {
             document.getElementById("green").src = "../img/green-pressed.png";
+            audioG.play();
             userInput.push(2);
             setTimeout(() => {
                 document.getElementById("green").src = "../img/green.png";
@@ -232,6 +237,7 @@
 
         document.getElementById("turq").addEventListener("click", () => {
             document.getElementById("turq").src = "../img/turq-pressed.png";
+            audioT.play();
             userInput.push(3);
             setTimeout(() => {
                 document.getElementById("turq").src = "../img/turq.png";
@@ -245,6 +251,7 @@
 
         document.getElementById("blue").addEventListener("click", () => {
             document.getElementById("blue").src = "../img/blue-pressed.png";
+            audioB.play();
             userInput.push(4);
             setTimeout(() => {
                 document.getElementById("blue").src = "../img/blue.png";
@@ -259,21 +266,25 @@
         function showSequence(i) {
             if (reverseSequence[i] === 1) {
                 document.getElementById("red").src = "../img/red-pressed.png";
+                audioR.play();
                 setTimeout(() => {
                     document.getElementById("red").src = "../img/red.png";
                 }, 500);
             } else if (reverseSequence[i] === 2) {
                 document.getElementById("green").src = "../img/green-pressed.png";
+                audioG.play();
                 setTimeout(() => {
                     document.getElementById("green").src = "../img/green.png";
                 }, 500);
             } else if (reverseSequence[i] === 3) {
                 document.getElementById("turq").src = "../img/turq-pressed.png";
+                audioT.play();
                 setTimeout(() => {
                     document.getElementById("turq").src = "../img/turq.png";
                 }, 500);
             } else if (reverseSequence[i] === 4) {
                 document.getElementById("blue").src = "../img/blue-pressed.png";
+                audioB.play();
                 setTimeout(() => {
                     document.getElementById("blue").src = "../img/blue.png";
                 }, 500);
